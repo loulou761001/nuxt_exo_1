@@ -1,15 +1,21 @@
 <template>
   <div class="navbar flex sb">
+    <div class="hidden filter">
+
+    </div>
     <a href="/">
       <img src="@/assets/imgs/logo.svg" alt="">
     </a>
     <ul class="flex sa mainNav">
-      <li class="crossBtn">
+      <li v-on:click="closeMenu" class="crossBtn absolute">
         <img src="@/assets/imgs/icon-close-menu.svg" alt="">
       </li>
       <li v-if="column.lines" class="navBtn menu" v-for="column in columns">
         <div  class="relative">
-          <p>{{ column.nom }} <i class="fa-solid fa-angle-down dropClosed"></i></p>
+          <p>{{ column.nom }}
+            <i class="fa-solid fa-angle-down dropClosed"></i>
+            <i class="fa-solid fa-angle-up dropOpen"></i>
+          </p>
           <div class="dropdown absolute" >
             <ul>
               <li v-for="line in column.lines" >
@@ -25,6 +31,12 @@
         </div>
       </li>
 
+      <li class="loginRegBurger navBtn">
+        <a class=""  href="/login"><p>Login</p></a>
+      </li>
+      <li class="loginRegBurger navBtn">
+        <a class="" href="/register"><p>Register</p></a>
+      </li>
 
     </ul>
 
@@ -33,7 +45,7 @@
       <a class="navbarRightBtn" href="/register"><p>Register</p></a>
     </div>
 
-    <div class="burger_menu">
+    <div v-on:click="openMenu" class="burger_menu">
       <img src="@/assets/imgs/icon-menu.svg" alt="">
     </div>
 
@@ -67,7 +79,18 @@ export default {
   },
   methods: {
     openMenu() {
-      menuScreen.style.display = 'fixed'
+      console.log('click')
+      const menuScreen = document.querySelector('.mainNav')
+      const filter = document.querySelector('.filter')
+      menuScreen.style.display = 'flex'
+      filter.style.display = 'block'
+    },
+    closeMenu() {
+      console.log('click')
+      const menuScreen = document.querySelector('.mainNav')
+      const filter = document.querySelector('.filter')
+      menuScreen.style.display = 'none'
+      filter.style.display = 'none'
     }
   }
 }
@@ -78,6 +101,7 @@ export default {
   padding: 40px;
   color: var(--mediumGray);
 }
+
 .navbar img {
   vertical-align:middle
 }
@@ -90,6 +114,8 @@ export default {
   width:30px;
   margin: 10px;
   justify-content: right;
+  right: 60px;
+  cursor: pointer;
 }
 .dropdown {
   display: none;
@@ -107,16 +133,25 @@ export default {
   width: 20px;
   margin-right: 10px;
 }
+.dropOpen {
+  display: none;
+}
 
-li.menu:first-of-type div .dropdown {
+li.menu:nth-of-type(2) div .dropdown {
   left: 0;
 }
-li.menu:nth-of-type(2) div .dropdown {
+li.menu:nth-of-type(3) div .dropdown {
   left: 100%;
 }
 
 li:hover .dropdown {
   display: block;
+}
+li:hover .dropOpen {
+  display: inline;
+}
+li:hover .dropClosed {
+  display: none;
 }
 
 .navbarRightBtn, .navBtn {
@@ -130,33 +165,67 @@ li:hover .dropdown {
 .navbarRightBtn:nth-of-type(2):hover {
   outline: solid 2px var(--almostBlack);
 }
+.loginRegBurger {
+  display: none;
+  text-align: center!important;
+  margin-top: 20px;
+}
+.loginRegBurger:last-of-type p {
+  outline: solid 2px var(--mediumGray);
+  border-radius: 10px;
+  padding: 10px 30px;
+  display: inline;
 
+}
 /*Burger menu*/
 
 .burger_menu {
-  /*display: none;*/
+  display: none;
   cursor: pointer;
 }
 @media screen and (max-width: 975px) {
+  .filter {
+    margin: -40px;
+    height: 100vh;
+    width: 40vw;
+    position: fixed;
+    display: block;
+    background-color: rgba(0,0,0,0.5);
+  }
+  .filter, .mainNav {
+    display: none;
+  }
   .burger_menu {
     display: block;
   }
   .crossBtn {
     display: block;
   }
+  .loginRegBurger {
+    display: inline-block;
+    padding: 0;
+  }
 
   .rightBtns {
     display: none;
   }
   .mainNav {
+    padding-top: 25px;
     position: fixed;
-    background-color: indianred;
+    background-color: var(--almostWhite);
     height: 100vh;
     width: 80vw;
     margin: -40px -40px -40px 20vw;
     flex-direction: column;
     justify-content: normal;
   }
+  .mainNav * {
+    margin-bottom: 5px;
+  }
+  .mainNav>li:nth-child(2) {
+    margin-top: 50px;
+  }
+
   .dropdown {
     position: relative;
     top: 0;
