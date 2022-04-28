@@ -1,6 +1,6 @@
 <template>
 
-  <div class="flex sb">
+  <div class="flex sb container">
     <div id="leftDiv" class="flex column">
       <div class="centerDiv">
         <leftBody />
@@ -26,6 +26,12 @@ export default {
 <style>
 .centerDiv {
   margin: auto;
+}
+@media screen and (max-width: 787px) {
+  .container {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 }
 
 </style>

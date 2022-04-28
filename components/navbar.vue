@@ -1,14 +1,15 @@
 <template>
   <div class="navbar flex sb">
-    <ul class="flex sa">
-      <li>
-        <a href="/">
-          <img src="@/assets/imgs/logo.svg" alt="">
-        </a>
+    <a href="/">
+      <img src="@/assets/imgs/logo.svg" alt="">
+    </a>
+    <ul class="flex sa mainNav">
+      <li class="crossBtn">
+        <img src="@/assets/imgs/icon-close-menu.svg" alt="">
       </li>
       <li v-if="column.lines" class="navBtn menu" v-for="column in columns">
         <div  class="relative">
-          <p>{{ column.nom }} <i class="fa-solid fa-angle-down"></i></p>
+          <p>{{ column.nom }} <i class="fa-solid fa-angle-down dropClosed"></i></p>
           <div class="dropdown absolute" >
             <ul>
               <li v-for="line in column.lines" >
@@ -27,9 +28,13 @@
 
     </ul>
 
-    <div class="flex">
+    <div class="flex rightBtns">
       <a class="navbarRightBtn"  href="/login"><p>Login</p></a>
       <a class="navbarRightBtn" href="/register"><p>Register</p></a>
+    </div>
+
+    <div class="burger_menu">
+      <img src="@/assets/imgs/icon-menu.svg" alt="">
     </div>
 
   </div>
@@ -61,7 +66,9 @@ export default {
     }
   },
   methods: {
-
+    openMenu() {
+      menuScreen.style.display = 'fixed'
+    }
   }
 }
 </script>
@@ -77,6 +84,13 @@ export default {
 .navbar p:hover {
   color: var(--almostBlack);
 }
+.crossBtn {
+  display: none;
+  height: 30px;
+  width:30px;
+  margin: 10px;
+  justify-content: right;
+}
 .dropdown {
   display: none;
   top: 25px;
@@ -91,12 +105,13 @@ export default {
 .dropdown .ddIcon {
   height: 20px;
   width: 20px;
+  margin-right: 10px;
 }
 
-.menu:first-of-type div .dropdown {
+li.menu:first-of-type div .dropdown {
   left: 0;
 }
-.menu:last-of-type div .dropdown {
+li.menu:nth-of-type(2) div .dropdown {
   left: 100%;
 }
 
@@ -115,4 +130,47 @@ li:hover .dropdown {
 .navbarRightBtn:nth-of-type(2):hover {
   outline: solid 2px var(--almostBlack);
 }
+
+/*Burger menu*/
+
+.burger_menu {
+  /*display: none;*/
+  cursor: pointer;
+}
+@media screen and (max-width: 975px) {
+  .burger_menu {
+    display: block;
+  }
+  .crossBtn {
+    display: block;
+  }
+
+  .rightBtns {
+    display: none;
+  }
+  .mainNav {
+    position: fixed;
+    background-color: indianred;
+    height: 100vh;
+    width: 80vw;
+    margin: -40px -40px -40px 20vw;
+    flex-direction: column;
+    justify-content: normal;
+  }
+  .dropdown {
+    position: relative;
+    top: 0;
+    box-shadow: none;
+    left: 0!important;
+    transform: none;
+  }
+  .navbarRightBtn, .navBtn {
+    text-align: left;
+
+  }
+}
+
+
+
+
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <h1 class="bold">Make<br>remote work</h1>
+  <div class="compContainer">
+      <h1 class="bold">Make remote work</h1>
       <p class="mainText">Get your team in sync, no matter your location. <br>Streamline processes, create team rituals, and watch productivity soar</p>
       <a href="/about"><p class="bold">Learn more</p></a>
   </div>
@@ -36,4 +36,14 @@ a p:hover {
   background-color: var(--almostWhite);
   outline: solid 2px var(--almostBlack);
 }
+
+@media screen and (max-width: 787px) {
+  h1 {
+    font-size: 55px;
+  }
+  .compContainer {
+    text-align: center;
+  }
+}
+
 </style>
